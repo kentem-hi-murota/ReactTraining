@@ -1,4 +1,4 @@
-export const getAllPokemon = async (url: string) => {
+export const getPokemon = async (url: string) => {
   try {
     const response = await fetch(url);
     if (!response.ok)
@@ -7,6 +7,7 @@ export const getAllPokemon = async (url: string) => {
       );
 
     const data = await response.json();
+    // console.log(data);
     return data;
   } catch (e) {
     console.log(`error: ${e}`);
