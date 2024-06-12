@@ -2,6 +2,8 @@ import type { NamedAPIResource, Pokemon } from "./types";
 import { getNamedAPIResources, getPokemon } from "./utils/pokemon";
 import { useEffect, useState } from "react";
 
+import { Card } from "./Components";
+
 const PokemonApp = () => {
   const pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon";
 
@@ -29,11 +31,10 @@ const PokemonApp = () => {
     setLoading(false); /// pokemonDataの更新を出したタイミング
   };
 
-  console.log(pokemonData[0]);
   return (
     <>
       <h1>Pokemon</h1>
-      {loading ? <div>Loading...</div> : <div>Loaded.</div>}
+      {loading ? <div>Loading...</div> : <Card pokemonData={pokemonData} />}
     </>
   );
 };
