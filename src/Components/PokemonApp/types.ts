@@ -4,14 +4,14 @@ export interface NamedAPIResource {
 }
 
 export interface Pokemon {
-  url: string;
+  // species: NamedAPIResource;
   id: number;
   name: string;
   types: PokemonType[];
   weight: number;
   height: number;
-  ability: PokemonAbility[];
-  frontImgUrl: string;
+  abilities: PokemonAbility[];
+  sprites: { front_default: string };
 }
 
 interface PokemonAbility {

@@ -1,15 +1,29 @@
-export const getPokemon = async (url: string) => {
-  try {
-    const response = await fetch(url);
-    if (!response.ok)
-      throw new Error(
-        `response.status = ${response.status}, response.statusText = ${response.statusText}`
-      );
+import type { NamedAPIResource, Pokemon } from "../types";
+import axios from "axios";
 
-    const data = await response.json();
-    // console.log(data);
-    return data;
-  } catch (e) {
-    console.log(`error: ${e}`);
+export const getNamedAPIResources = async (url: string): Promise<NamedAPIResource[]> => {
+  try {
+    const response = await axios.get(url);
+    return response.data.results;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getPokemon = async (url: string): Promise<Pokemon> => {
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getPokemonImg = async (url: string) => {
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
   }
 };

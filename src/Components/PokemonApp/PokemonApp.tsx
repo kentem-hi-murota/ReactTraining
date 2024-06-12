@@ -1,5 +1,5 @@
 import type { NamedAPIResource, Pokemon } from "./types";
-import { getPokemon } from "./utils/pokemon";
+import { getNamedAPIResources, getPokemon } from "./utils/pokemon";
 import { useEffect, useState } from "react";
 
 const PokemonApp = () => {
@@ -10,10 +10,10 @@ const PokemonApp = () => {
 
   useEffect(() => {
     const fetchPokemonData = async (url: string) => {
-      let response = await getPokemon(url);
-      loadPokemon(response.results);
-      setLoading(false);
+      let response = await getNamedAPIResources(url);
+      loadPokemon(response);
     };
+
     fetchPokemonData(pokemonApiUrl);
   }, []);
 
@@ -25,11 +25,11 @@ const PokemonApp = () => {
         return pokemonRecord;
       })
     );
-    setPokemonData(_pokemonData);
+    if (_pokemonData) setPokemonData(_pokemonData);
+    setLoading(false); /// pokemonDataの更新を出したタイミング
   };
 
-  console.log(pokemonData);
-
+  console.log(pokemonData[0]);
   return (
     <>
       <h1>Pokemon</h1>
