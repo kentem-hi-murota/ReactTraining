@@ -35,18 +35,20 @@ const PokemonApp = () => {
   return (
     <>
       <Global styles={pokemonGlobalStyle} />
-      <h1>Pokemon</h1>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <main>
+      <header css={headerStyle}>
+        <h1>Pokemon</h1>
+      </header>
+      <main>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
           <section css={cardListStyle}>
             {pokemonData.map((pokemon) => (
               <Card key={pokemon.id} pokemon={pokemon} />
             ))}
           </section>
-        </main>
-      )}
+        )}
+      </main>
     </>
   );
 };
@@ -57,7 +59,17 @@ const pokemonGlobalStyle = css({
     textAlign: "center",
     width: "100%",
     height: "100vh",
+    margin: "0",
   },
+});
+
+const headerStyle = css({
+  background: "white",
+  padding: "8px 0",
+
+  h1: {
+    margin: 0,
+  }
 });
 
 const cardListStyle = css({
