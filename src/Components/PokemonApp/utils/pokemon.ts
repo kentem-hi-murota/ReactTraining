@@ -18,12 +18,3 @@ export const getPokemon = async (url: string): Promise<Pokemon> => {
     return Promise.reject(error);
   }
 };
-
-export const getPokemonImg = async (url: string) => {
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
