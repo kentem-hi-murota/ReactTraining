@@ -1,6 +1,7 @@
 import type { NamedAPIResource, Pokemon } from "./types";
 import { getNamedAPIResources, getPokemon } from "./utils/pokemon";
 import { useEffect, useState } from "react";
+import { css, Global } from "@emotion/react";
 
 import { Card } from "./Components";
 
@@ -33,10 +34,38 @@ const PokemonApp = () => {
 
   return (
     <>
+      <Global styles={pokemonGlobalStyle} />
       <h1>Pokemon</h1>
-      {loading ? <div>Loading...</div> : <Card pokemonData={pokemonData} />}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <main>
+          <section css={cardListStyle}>
+            {pokemonData.map((pokemon) => (
+              <Card key={pokemon.id} pokemon={pokemon} />
+            ))}
+          </section>
+        </main>
+      )}
     </>
   );
 };
+
+const pokemonGlobalStyle = css({
+  body: {
+    background: "#FDD000",
+    textAlign: "center",
+    width: "100%",
+    height: "100vh",
+  },
+});
+
+const cardListStyle = css({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr 1fr",
+  placeItems: "center",
+  gap: "20px",
+  marginTop: "20px",
+});
 
 export default PokemonApp;
