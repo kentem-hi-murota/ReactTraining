@@ -24,7 +24,11 @@ export const getPokemon = async (url: string): Promise<Pokemon> => {
 export const getPaginationUrl = async (url: string): Promise<PaginationUrl> => {
   try {
     const response = await axios.get(url);
-    return response.data;
+    const paginationUrl: PaginationUrl = {
+      next: response.data.next ?? "",
+      previous: response.data.previous ?? "",
+    };
+    return paginationUrl;
   } catch (error) {
     return Promise.reject(error);
   }
