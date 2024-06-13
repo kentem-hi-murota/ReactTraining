@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { Button } from "../index";
 import type { PaginationUrl } from "../../types";
 
@@ -15,11 +16,23 @@ const PaginationButtons = ({ paginationUrl, setCurrentUrl }: Props) => {
   };
 
   return (
-    <div>
-      <Button buttonText="< まえ" clickHandler={MoveToPreviousPage} />
-      <Button buttonText="つぎ >" clickHandler={MoveToNextPage} />
+    <div css={paginationButtonsStyle}>
+      <Button
+        buttonText="< まえ"
+        clickHandler={MoveToPreviousPage}
+        disabled={paginationUrl.previous.length === 0}
+      />
+      <Button
+        buttonText="つぎ >"
+        clickHandler={MoveToNextPage}
+        disabled={paginationUrl.next.length === 0}
+      />
     </div>
   );
 };
+
+const paginationButtonsStyle = css({
+  margin:'32px 0',
+});
 
 export default PaginationButtons;
