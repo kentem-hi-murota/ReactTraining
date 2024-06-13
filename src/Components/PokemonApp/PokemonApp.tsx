@@ -1,5 +1,9 @@
-import type { NamedAPIResource, Pokemon } from "./types";
-import { getNamedAPIResources, getPokemon } from "./utils/pokemon";
+import type { NamedAPIResource, Pokemon, PaginationUrl } from "./types";
+import {
+  getNamedAPIResources,
+  getPokemon,
+  getPaginationUrl,
+} from "./utils/pokemon";
 import { useEffect, useState } from "react";
 import { css, Global } from "@emotion/react";
 
@@ -10,14 +14,24 @@ const PokemonApp = () => {
 
   const [loading, setLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
+  const [currentUrl, setCurrentUrl] = useState<string>(pokemonApiUrl);
+  const [paginationUrl, setPaginationUrl] = useState<PaginationUrl>({
+    next: "",
+    previous: "",
+  });
 
   useEffect(() => {
     const fetchPokemonData = async (url: string) => {
       let response = await getNamedAPIResources(url);
       loadPokemon(response);
     };
+    const fetchPaginationUrl = async (url: string) => {
+      const response = await getPaginationUrl(url);
+      setPaginationUrl(response);
+    };
 
-    fetchPokemonData(pokemonApiUrl);
+    fetchPokemonData(currentUrl);
+    fetchPaginationUrl(currentUrl);
   }, []);
 
   const loadPokemon = async (data: NamedAPIResource[]) => {
@@ -48,7 +62,7 @@ const PokemonApp = () => {
                 <Card key={pokemon.id} pokemon={pokemon} />
               ))}
             </section>
-            <PaginationButtons />
+            <PaginationButtons setCurrentUrl={setCurrentUrl} paginationUrl={paginationUrl}/>
           </>
         )}
       </main>
