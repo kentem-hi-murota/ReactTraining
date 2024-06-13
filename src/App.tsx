@@ -1,11 +1,13 @@
-import { Pokemon } from "./Components";
+import { Pokemon, Blog } from "./Components";
 
 function App() {
   return (
     <>
-      <Pokemon />
+      {/* <Pokemon /> */}
+      <Blog />
     </>
   );
 }
 
 export default App;
+
