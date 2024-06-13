@@ -22,7 +22,7 @@ const PokemonApp = () => {
 
   useEffect(() => {
     const fetchPokemonData = async (url: string) => {
-      let response = await getNamedAPIResources(url);
+      const response = await getNamedAPIResources(url);
       loadPokemon(response);
     };
     const fetchPaginationUrl = async (url: string) => {
@@ -37,9 +37,9 @@ const PokemonApp = () => {
 
   const loadPokemon = async (data: NamedAPIResource[]) => {
     /// Promise[]を引数にする。
-    let _pokemonData = await Promise.all(
+    const _pokemonData = await Promise.all(
       data.map((pokemon: NamedAPIResource) => {
-        let pokemonRecord = getPokemon(pokemon.url);
+        const pokemonRecord = getPokemon(pokemon.url);
         return pokemonRecord;
       })
     );
