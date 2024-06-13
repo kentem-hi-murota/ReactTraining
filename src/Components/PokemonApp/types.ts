@@ -24,3 +24,8 @@ interface PokemonType {
   type: { name: string; url: string };
   slot: number;
 }
+
+export interface PaginationUrl {
+  next: string;
+  previous: string;
+}
