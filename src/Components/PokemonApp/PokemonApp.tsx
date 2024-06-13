@@ -30,9 +30,10 @@ const PokemonApp = () => {
       setPaginationUrl(response);
     };
 
+    setLoading(true);
     fetchPokemonData(currentUrl);
     fetchPaginationUrl(currentUrl);
-  }, []);
+  }, [currentUrl]);
 
   const loadPokemon = async (data: NamedAPIResource[]) => {
     /// Promise[]を引数にする。
@@ -62,7 +63,10 @@ const PokemonApp = () => {
                 <Card key={pokemon.id} pokemon={pokemon} />
               ))}
             </section>
-            <PaginationButtons setCurrentUrl={setCurrentUrl} paginationUrl={paginationUrl}/>
+            <PaginationButtons
+              setCurrentUrl={setCurrentUrl}
+              paginationUrl={paginationUrl}
+            />
           </>
         )}
       </main>
