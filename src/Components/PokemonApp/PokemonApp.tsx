@@ -3,7 +3,7 @@ import { getNamedAPIResources, getPokemon } from "./utils/pokemon";
 import { useEffect, useState } from "react";
 import { css, Global } from "@emotion/react";
 
-import { Card } from "./Components";
+import { Card, PaginationButtons } from "./Components";
 
 const PokemonApp = () => {
   const pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon";
@@ -42,11 +42,14 @@ const PokemonApp = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <section css={cardListStyle}>
-            {pokemonData.map((pokemon) => (
-              <Card key={pokemon.id} pokemon={pokemon} />
-            ))}
-          </section>
+          <>
+            <section css={cardListStyle}>
+              {pokemonData.map((pokemon) => (
+                <Card key={pokemon.id} pokemon={pokemon} />
+              ))}
+            </section>
+            <PaginationButtons />
+          </>
         )}
       </main>
     </>
@@ -69,7 +72,7 @@ const headerStyle = css({
 
   h1: {
     margin: 0,
-  }
+  },
 });
 
 const cardListStyle = css({
