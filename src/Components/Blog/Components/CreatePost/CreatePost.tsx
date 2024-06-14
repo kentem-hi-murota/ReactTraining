@@ -1,18 +1,22 @@
-import { useState } from "react";
-import { css } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { useEffect, useState } from 'react';
+import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
 
-const CreatePost = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+interface Props {
+  isAuth: boolean;
+}
+
+const CreatePost = (isAuth: Props) => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const navigate = useNavigate();
 
   const Post = async () => {
     try {
-      await addDoc(collection(db, "posts"), {
+      await addDoc(collection(db, 'posts'), {
         title: title,
         postsText: content,
         author: {
@@ -20,12 +24,16 @@ const CreatePost = () => {
           id: auth.currentUser?.uid,
         },
       });
-      navigate("/");
+      navigate('/');
     } catch (error) {
-      alert("投稿できませんでした。");
+      alert('投稿できませんでした。');
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (!isAuth) navigate('/');
+  }, []);
 
   return (
     <div css={createPostPageStyle}>
@@ -62,24 +70,24 @@ const CreatePost = () => {
 };
 
 const createPostPageStyle = css({
-  height: "90vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  height: '90vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 const createPostStyle = css({
-  borderRadius: "8px",
-  background: "white",
-  textAlign: "left",
-  width: "540px",
-  padding: "24px",
-  boxSizing: "border-box",
-  boxShadow: "0 0 16px #444",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  gap: "10px",
+  borderRadius: '8px',
+  background: 'white',
+  textAlign: 'left',
+  width: '540px',
+  padding: '24px',
+  boxSizing: 'border-box',
+  boxShadow: '0 0 16px #444',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '10px',
 });
 
 const cancelMargin = css({
@@ -87,35 +95,35 @@ const cancelMargin = css({
 });
 
 const labelStyle = css({
-  display: "block",
+  display: 'block',
 });
 
 const inputStyle = css({
-  outline: "none",
-  boxSizing: "border-box",
-  height: "2em",
-  width: "100%",
+  outline: 'none',
+  boxSizing: 'border-box',
+  height: '2em',
+  width: '100%',
 });
 
 const textareaStyle = css({
-  height: "10em",
+  height: '10em',
 });
 
 const buttonStyle = css({
-  border: "none",
-  borderRadius: "4px",
-  background: "#333",
-  color: "white",
-  height: "40px",
-  width: "100%",
-  cursor: "pointer",
+  border: 'none',
+  borderRadius: '4px',
+  background: '#333',
+  color: 'white',
+  height: '40px',
+  width: '100%',
+  cursor: 'pointer',
 
-  "&:hover": {
+  '&:hover': {
     opacity: 0.8,
   },
 
-  "&:active": {
-    transform: "translateY(2px)",
+  '&:active': {
+    transform: 'translateY(2px)',
   },
 });
 export default CreatePost;
