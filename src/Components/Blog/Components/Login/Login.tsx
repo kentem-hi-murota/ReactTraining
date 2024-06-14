@@ -8,9 +8,14 @@ interface Props {
 const Login = ({ isAuthHandler }: Props) => {
   const navigate = useNavigate();
   const LoginWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-    isAuthHandler(true);
-    navigate("/");
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      isAuthHandler(true);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

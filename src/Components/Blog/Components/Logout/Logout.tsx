@@ -9,7 +9,7 @@ interface Props {
 const Logout = ({ isAuthHandler }: Props) => {
   const navigate = useNavigate();
   const Logout = async () => {
-    const result = await signOut(auth);
+    await signOut(auth);
     isAuthHandler(false);
     navigate("/login");
   };
