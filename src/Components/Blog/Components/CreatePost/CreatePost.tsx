@@ -1,8 +1,32 @@
+import { useState } from "react";
 import { css } from "@emotion/react";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 
 const CreatePost = () => {
-  useEffect(() => {}, []);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const navigate = useNavigate();
+
+  const Post = async () => {
+    try {
+      await addDoc(collection(db, "posts"), {
+        title: title,
+        postsText: content,
+        author: {
+          username: auth.currentUser?.displayName,
+          id: auth.currentUser?.uid,
+        },
+      });
+      navigate("/");
+    } catch (error) {
+      alert("投稿できませんでした。");
+      console.log(error);
+    }
+  };
+
   return (
     <div css={createPostPageStyle}>
       <div css={createPostStyle}>
@@ -15,6 +39,7 @@ const CreatePost = () => {
             id="title"
             placeholder="タイトルを記入"
             css={inputStyle}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </label>
         <label css={labelStyle}>
@@ -25,9 +50,12 @@ const CreatePost = () => {
             placeholder="投稿内容を記入"
             className="content"
             css={[inputStyle, textareaStyle]}
+            onChange={(e) => setContent(e.target.value)}
           />
         </label>
-        <button css={buttonStyle}>投稿する</button>
+        <button css={buttonStyle} onClick={Post}>
+          投稿する
+        </button>
       </div>
     </div>
   );
