@@ -1,20 +1,37 @@
+import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
+import { collection, getDocs, DocumentData } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 const Home = () => {
+  const [postList, setPostList] = useState<DocumentData[]>([]);
+
+  useEffect(() => {
+    const getArticles = async () => {
+      try {
+        const response = await getDocs(collection(db, 'posts'));
+        const articles = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setPostList(articles);
+      } catch (error) {}
+    };
+    getArticles();
+  }, []);
   return (
     <div css={homePageStyle}>
-      <article css={articleStyle}>
-        <section>
-          <h2>タイトル</h2>
-          <p css={paragrahStyle}>
-            ooおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお
-          </p>
-        </section>
-        <section css={authStyle}>
-          <h3>onamae</h3>
-          <button css={buttonStyle}>削除</button>
-        </section>
-      </article>
+      {postList.map((post) => {
+        return (
+          <article css={articleStyle} key={post.id}>
+            <section>
+              <h2>{post.title}</h2>
+              <p css={paragrahStyle}>{post.postsText}</p>
+            </section>
+            <section css={authStyle}>
+              <h3>onamae</h3>
+              <button css={buttonStyle}>削除</button>
+            </section>
+          </article>
+        );
+      })}
     </div>
   );
 };
