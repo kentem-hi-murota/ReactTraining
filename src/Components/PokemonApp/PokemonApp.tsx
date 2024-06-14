@@ -5,7 +5,7 @@ import {
   getPaginationUrl,
 } from "./utils/pokemon";
 import { useEffect, useState } from "react";
-import { css, Global } from "@emotion/react";
+import { css } from "@emotion/react";
 
 import { Card, PaginationButtons } from "./Components";
 
@@ -49,7 +49,6 @@ const PokemonApp = () => {
 
   return (
     <>
-      <Global styles={pokemonGlobalStyle} />
       <header css={headerStyle}>
         <h1>Pokemon</h1>
       </header>
@@ -73,16 +72,6 @@ const PokemonApp = () => {
     </>
   );
 };
-
-const pokemonGlobalStyle = css({
-  body: {
-    background: "#FDD000",
-    textAlign: "center",
-    width: "100%",
-    height: "100vh",
-    margin: "0",
-  },
-});
 
 const headerStyle = css({
   background: "white",
