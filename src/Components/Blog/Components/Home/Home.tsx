@@ -26,7 +26,7 @@ const Home = () => {
               <p css={paragrahStyle}>{post.postsText}</p>
             </section>
             <section css={authStyle}>
-              <h3>onamae</h3>
+              <h3>{post.author.username}</h3>
               <button css={buttonStyle}>削除</button>
             </section>
           </article>
