@@ -1,2 +1,3 @@
-export * from "./PokemonApp";
-export * from "./Blog";
+export * from './PokemonApp';
+export * from './Blog';
+export * from './Note';
