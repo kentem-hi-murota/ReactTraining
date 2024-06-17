@@ -1,5 +1,10 @@
 const Editor = () => {
-  return <div>Editor</div>;
+  return (
+    <div>
+      <input type="text" placeholder="title"></input>
+      <input type="text" placeholder="content"></input>
+    </div>
+  );
 };
 
 export default Editor;
