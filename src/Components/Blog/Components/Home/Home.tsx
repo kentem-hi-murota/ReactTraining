@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
-import { collection, getDocs, DocumentData } from 'firebase/firestore';
+import { collection, getDocs, DocumentData, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 const Home = () => {
@@ -16,6 +16,12 @@ const Home = () => {
     };
     getArticles();
   }, []);
+
+  const HandleDelete = async (id: string): Promise<void> => {
+    await deleteDoc(doc(db, 'posts', id));
+    window.location.href = '/';
+  };
+
   return (
     <div css={homePageStyle}>
       {postList.map((post) => {
@@ -27,7 +33,9 @@ const Home = () => {
             </section>
             <section css={authStyle}>
               <h3>{post.author.username}</h3>
-              <button css={buttonStyle}>削除</button>
+              <button css={buttonStyle} onClick={() => HandleDelete(post.id)}>
+                削除
+              </button>
             </section>
           </article>
         );
