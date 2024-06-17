@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { collection, getDocs, DocumentData, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db, auth } from '../../firebase';
 
 const Home = () => {
   const [postList, setPostList] = useState<DocumentData[]>([]);
@@ -33,9 +33,11 @@ const Home = () => {
             </section>
             <section css={authStyle}>
               <h3>{post.author.username}</h3>
-              <button css={buttonStyle} onClick={() => HandleDelete(post.id)}>
-                削除
-              </button>
+              {auth.currentUser?.uid === post.author.id && (
+                <button css={buttonStyle} onClick={() => HandleDelete(post.id)}>
+                  削除
+                </button>
+              )}
             </section>
           </article>
         );
