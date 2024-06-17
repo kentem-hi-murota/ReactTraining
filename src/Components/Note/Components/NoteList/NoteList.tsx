@@ -3,10 +3,11 @@ import type { Note } from '../../Note';
 
 interface Props {
   addNote: () => void;
+  removeNote: (id: string) => void;
   notes: Note[];
 }
 
-const NoteList = ({ addNote, notes }: Props) => {
+const NoteList = ({ addNote, removeNote, notes }: Props) => {
   return (
     <div css={sideBarStyle}>
       <section css={sideBarHeadStyle}>
@@ -24,7 +25,14 @@ const NoteList = ({ addNote, notes }: Props) => {
                 <p css={paragraphStyle}>{note.content}</p>
                 <small css={smallStyle}>{new Date(note.modDate).toLocaleString('ja-JP')}</small>
               </div>
-              <button css={buttonStyle}>削除</button>
+              <button
+                css={buttonStyle}
+                onClick={() => {
+                  removeNote(note.id);
+                }}
+              >
+                削除
+              </button>
             </li>
           );
         })}

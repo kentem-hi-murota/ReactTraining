@@ -23,9 +23,14 @@ const Note = () => {
     setNotes([...notes, newNote]);
   };
 
+  const removeNote = (id: string): void => {
+    const newNotes = notes.filter((note) => note.id !== id);
+    setNotes([...newNotes]);
+  };
+
   return (
     <div css={noteStyle}>
-      <NoteList addNote={addNote} notes={notes} />
+      <NoteList addNote={addNote} removeNote={removeNote} notes={notes} />
       <main css={mainStyle}>
         <Editor />
         <Preview />
