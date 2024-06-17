@@ -18,11 +18,11 @@ const NoteList = ({ addNote, notes }: Props) => {
       <ul css={listStyle}>
         {notes.map((note) => {
           return (
-            <li key={note.title}>
+            <li key={note.id}>
               <div>
                 <h3 css={h3Style}>{note.title}</h3>
                 <p css={paragraphStyle}>{note.content}</p>
-                <small css={smallStyle}>{note.modDate}</small>
+                <small css={smallStyle}>{new Date(note.modDate).toLocaleString('ja-JP')}</small>
               </div>
               <button css={buttonStyle}>削除</button>
             </li>

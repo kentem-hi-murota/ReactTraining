@@ -7,7 +7,7 @@ export interface Note {
   id: string;
   title: string;
   content: string;
-  modDate: string;
+  modDate: number;
 }
 
 const Note = () => {
@@ -18,7 +18,7 @@ const Note = () => {
       id: uuidv4(),
       title: '新しいノート',
       content: '',
-      modDate: Date.now().toString(),
+      modDate: Date.now(),
     };
     setNotes([...notes, newNote]);
   };
