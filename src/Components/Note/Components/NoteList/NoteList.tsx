@@ -1,41 +1,28 @@
 import { css } from '@emotion/react';
+import type { Note } from '../../Note';
 
-const NoteList = () => {
-  const NoteExample = [
-    {
-      title: 'test1',
-      content: 'contenttest',
-      editedTime: '2022',
-      isSelected: false,
-    },
-    {
-      title: 'test2',
-      content: 'contenttest',
-      editedTime: '202',
-      isSelected: false,
-    },
-    {
-      title: 'test3',
-      content: 'contenttest',
-      editedTime: '2023',
-      isSelected: false,
-    },
-  ];
+interface Props {
+  addNote: () => void;
+  notes: Note[];
+}
 
+const NoteList = ({ addNote, notes }: Props) => {
   return (
     <div css={sideBarStyle}>
       <section css={sideBarHeadStyle}>
         <h1>ノート</h1>
-        <button css={buttonStyle}>追加</button>
+        <button css={buttonStyle} onClick={addNote}>
+          追加
+        </button>
       </section>
       <ul css={listStyle}>
-        {NoteExample.map((note) => {
+        {notes.map((note) => {
           return (
-            <li key={note.title} className={note.isSelected ? 'isSelected' : ''}>
+            <li key={note.title}>
               <div>
                 <h3 css={h3Style}>{note.title}</h3>
                 <p css={paragraphStyle}>{note.content}</p>
-                <small css={smallStyle}>{note.editedTime}</small>
+                <small css={smallStyle}>{note.modDate}</small>
               </div>
               <button css={buttonStyle}>削除</button>
             </li>

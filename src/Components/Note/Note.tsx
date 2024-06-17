@@ -1,10 +1,31 @@
 import { css } from '@emotion/react';
 import { NoteList, Editor, Preview } from './Components/index';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  modDate: string;
+}
 
 const Note = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  const addNote = () => {
+    const newNote = {
+      id: uuidv4(),
+      title: '新しいノート',
+      content: '',
+      modDate: Date.now().toString(),
+    };
+    setNotes([...notes, newNote]);
+  };
+
   return (
     <div css={noteStyle}>
-      <NoteList />
+      <NoteList addNote={addNote} notes={notes} />
       <main css={mainStyle}>
         <Editor />
         <Preview />
