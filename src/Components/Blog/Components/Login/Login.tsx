@@ -1,18 +1,16 @@
-import { auth, provider } from "../../firebase";
-import { signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { auth, provider } from '../../firebase';
+import { signInWithPopup } from 'firebase/auth';
 interface Props {
-  isAuthHandler: (data: boolean) => void;
+  isAuthHandler: (data: 'true' | 'false') => void;
 }
 
 const Login = ({ isAuthHandler }: Props) => {
-  const navigate = useNavigate();
   const LoginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
-      isAuthHandler(true);
-      navigate("/");
+      isAuthHandler('true');
+      window.location.href = '/';
     } catch (error) {
       console.log(error);
     }

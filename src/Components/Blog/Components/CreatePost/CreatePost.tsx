@@ -4,14 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 
-interface Props {
-  isAuth: boolean;
-}
-
-const CreatePost = (isAuth: Props) => {
+const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  const isAuth = localStorage.getItem('isAuth');
   const navigate = useNavigate();
 
   const Post = async () => {
@@ -32,7 +29,7 @@ const CreatePost = (isAuth: Props) => {
   };
 
   useEffect(() => {
-    if (!isAuth) navigate('/');
+    if (isAuth === 'false') navigate('/');
   }, []);
 
   return (

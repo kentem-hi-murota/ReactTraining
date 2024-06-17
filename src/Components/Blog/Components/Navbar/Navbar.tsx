@@ -3,14 +3,15 @@ import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faFilePen, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-const Navbar = ({ isAuth }: { isAuth: boolean }) => {
+const Navbar = () => {
+  const isAuth = localStorage.getItem('isAuth');
   return (
     <nav css={navVarStyle}>
       <Link to="/" css={linkStyle}>
         <FontAwesomeIcon icon={faHouse} />
         ホーム
       </Link>
-      {isAuth ? (
+      {isAuth === 'true' ? (
         <>
           <Link to="/createpost" css={linkStyle}>
             <FontAwesomeIcon icon={faFilePen} />

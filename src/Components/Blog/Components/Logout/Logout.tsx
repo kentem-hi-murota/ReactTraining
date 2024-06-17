@@ -1,17 +1,15 @@
-import { auth } from "../../firebase";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
 
 interface Props {
-  isAuthHandler: (data: boolean) => void;
+  isAuthHandler: (data: 'true' | 'false') => void;
 }
 
 const Logout = ({ isAuthHandler }: Props) => {
-  const navigate = useNavigate();
   const Logout = async () => {
     await signOut(auth);
-    isAuthHandler(false);
-    navigate("/login");
+    isAuthHandler('false');
+    window.location.href = '/login';
   };
 
   return (
