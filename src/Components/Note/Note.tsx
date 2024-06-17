@@ -5,16 +5,22 @@ const Note = () => {
   return (
     <div css={noteStyle}>
       <NoteList />
-      <div>
+      <main css={mainStyle}>
         <Editor />
         <Preview />
-      </div>
+      </main>
     </div>
   );
 };
 
 const noteStyle = css({
   display: 'flex',
+});
+
+const mainStyle = css({
+  padding: '24px',
+  width: '100%',
+  boxSizing: 'border-box',
 });
 
 export default Note;
