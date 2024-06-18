@@ -38,7 +38,7 @@ const Note = () => {
   const editTitleHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const title = e.target.value;
     const targetNote: Note = notes.filter((note) => note.id === selectedNote.id)[0];
-    const newNote: Note = { ...targetNote, title: title };
+    const newNote: Note = { ...targetNote, title: title, modDate: Date.now() };
     setNotes([newNote, ...notes.filter((note) => note.id !== selectedNote.id)]);
     setSelectedNote(newNote);
   };
