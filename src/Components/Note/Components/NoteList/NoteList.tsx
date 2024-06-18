@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import type { Note } from '../../Note';
+import { useState } from 'react';
 
 interface Props {
   addNote: () => void;
@@ -8,6 +9,12 @@ interface Props {
 }
 
 const NoteList = ({ addNote, removeNote, notes }: Props) => {
+  const [selectedId, setSelectedId] = useState<string>('');
+
+  const selectedNoteStyle = css({
+    background: '#b79600',
+  });
+
   return (
     <div css={sideBarStyle}>
       <section css={sideBarHeadStyle}>
@@ -19,18 +26,13 @@ const NoteList = ({ addNote, removeNote, notes }: Props) => {
       <ul css={listStyle}>
         {notes.map((note) => {
           return (
-            <li key={note.id}>
+            <li key={note.id} css={note.id === selectedId && selectedNoteStyle} onClick={() => setSelectedId(note.id)}>
               <div>
                 <h3 css={h3Style}>{note.title}</h3>
                 <p css={paragraphStyle}>{note.content}</p>
                 <small css={smallStyle}>{new Date(note.modDate).toLocaleString('ja-JP')}</small>
               </div>
-              <button
-                css={buttonStyle}
-                onClick={() => {
-                  removeNote(note.id);
-                }}
-              >
+              <button css={buttonStyle} onClick={() => removeNote(note.id)}>
                 削除
               </button>
             </li>
@@ -84,11 +86,8 @@ const listStyle = css({
     textAlign: 'left',
     padding: '16px',
 
-    '&.isSelected, &:hover': css({
-      background: '#b79600',
-    }),
-
     '&:hover': css({
+      background: '#b79600',
       cursor: 'pointer',
     }),
   }),
