@@ -59,13 +59,19 @@ const Note = () => {
         notes={notes}
       />
       <main css={mainStyle}>
-        <Editor
-          editTitle={selectedNote.title}
-          editContent={selectedNote.content}
-          editTitleHandler={editTitleHandler}
-          editContentHandler={editContenteHandler}
-        />
-        <Preview title={selectedNote.title} content={selectedNote.content} />
+        {selectedNote.id ? (
+          <>
+            <Editor
+              editTitle={selectedNote.title}
+              editContent={selectedNote.content}
+              editTitleHandler={editTitleHandler}
+              editContentHandler={editContenteHandler}
+            />
+            <Preview title={selectedNote.title} content={selectedNote.content} />
+          </>
+        ) : (
+          <p css={noSelectNoteStyle}>ノートが選択されていません。</p>
+        )}
       </main>
     </div>
   );
@@ -78,6 +84,12 @@ const noteStyle = css({
 const mainStyle = css({
   width: '100%',
   height: '100vh',
+});
+
+const noSelectNoteStyle = css({
+  lineHeight: '50vh',
+  fontSize: '32px',
+  color: '#444',
 });
 
 export default Note;
