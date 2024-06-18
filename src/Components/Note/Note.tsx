@@ -18,6 +18,10 @@ const Note = () => {
     localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
+  useEffect(() => {
+    if (notes.length) setSelectedNote(notes[0]);
+  }, []);
+
   const addNote = () => {
     const newNote = {
       id: uuidv4(),
