@@ -3,7 +3,7 @@ import type { Note } from '../../Note';
 
 interface Props {
   addNote: () => void;
-  removeNote: (id: string) => void;
+  removeNote: (e: React.MouseEvent<HTMLButtonElement>, id: string) => void;
   selectedId: string;
   selectedNoteHandler: (note: Note) => void;
   notes: Note[];
@@ -35,7 +35,7 @@ const NoteList = ({ addNote, removeNote, selectedId, selectedNoteHandler, notes 
                 <p css={paragraphStyle}>{note.content}</p>
                 <small css={smallStyle}>{new Date(note.modDate).toLocaleString('ja-JP')}</small>
               </div>
-              <button css={buttonStyle} onClick={() => removeNote(note.id)}>
+              <button css={buttonStyle} onClick={(e) => removeNote(e, note.id)}>
                 削除
               </button>
             </li>

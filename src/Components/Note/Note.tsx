@@ -24,9 +24,12 @@ const Note = () => {
     setNotes([newNote, ...notes]);
   };
 
-  const removeNote = (id: string): void => {
+  const removeNote = (e: React.MouseEvent<HTMLButtonElement>, id: string): void => {
+    e.stopPropagation();
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes([...newNotes]);
+    setSelectedNote({ id: '', title: '', content: '', modDate: -1 });
+    console.log(selectedNote);
   };
 
   const selectedNoteHandler = (note: Note): void => {
