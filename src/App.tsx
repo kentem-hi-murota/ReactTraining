@@ -52,6 +52,7 @@ const headerStyle = css({
   display: 'flex',
   gap: '4px',
   alignItems: 'center',
+  borderBottom: '1px solid #aaa',
 });
 
 const buttonStyle = css({
