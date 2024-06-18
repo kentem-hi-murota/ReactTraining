@@ -1,10 +1,15 @@
 import { css } from '@emotion/react';
 
-const Preview = () => {
+interface Props {
+  title: string;
+  content: string;
+}
+
+const Preview = ({ title, content }: Props) => {
   return (
     <div css={previewStyle}>
-      <h2>タイトル</h2>
-      <p>ノート内容</p>
+      <h2>{title}</h2>
+      <p>{content}</p>
     </div>
   );
 };

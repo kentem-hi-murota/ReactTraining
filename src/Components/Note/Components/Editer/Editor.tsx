@@ -1,10 +1,17 @@
 import { css } from '@emotion/react';
 
-const Editor = () => {
+interface Props {
+  editTitle: string;
+  editContent: string;
+  editTitleHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  editContentHandler: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+const Editor = ({ editTitle, editContent, editTitleHandler, editContentHandler }: Props) => {
   return (
     <div css={editorStyle}>
-      <input type="text" placeholder="title" css={titleStyle}></input>
-      <textarea placeholder="content" css={contentStyle}></textarea>
+      <input type="text" placeholder="title" css={titleStyle} onChange={editTitleHandler} value={editTitle}></input>
+      <textarea placeholder="content" css={contentStyle} onChange={editContentHandler} value={editContent}></textarea>
     </div>
   );
 };

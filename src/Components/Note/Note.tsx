@@ -12,7 +12,7 @@ export interface Note {
 
 const Note = () => {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [selectedId, setSelectedId] = useState<string>('');
+  const [selectedNote, setSelectedNote] = useState<Note>({ id: '', title: '', content: '', modDate: -1 });
 
   const addNote = () => {
     const newNote = {
@@ -21,7 +21,7 @@ const Note = () => {
       content: '',
       modDate: Date.now(),
     };
-    setNotes([...notes, newNote]);
+    setNotes([newNote, ...notes]);
   };
 
   const removeNote = (id: string): void => {
@@ -29,8 +29,24 @@ const Note = () => {
     setNotes([...newNotes]);
   };
 
-  const onSetSelectedId = (id: string): void => {
-    setSelectedId(id);
+  const selectedNoteHandler = (note: Note): void => {
+    setSelectedNote(note);
+  };
+
+  const editTitleHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const title = e.target.value;
+    const targetNote: Note = notes.filter((note) => note.id === selectedNote.id)[0];
+    const newNote: Note = { ...targetNote, title: title };
+    setNotes([newNote, ...notes.filter((note) => note.id !== selectedNote.id)]);
+    setSelectedNote(newNote);
+  };
+
+  const editContenteHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    const content = e.target.value;
+    const targetNote: Note = notes.filter((note) => note.id === selectedNote.id)[0];
+    const newNote: Note = { ...targetNote, content: content };
+    setNotes([newNote, ...notes.filter((note) => note.id !== selectedNote.id)]);
+    setSelectedNote(newNote);
   };
 
   return (
@@ -38,13 +54,18 @@ const Note = () => {
       <NoteList
         addNote={addNote}
         removeNote={removeNote}
-        selectedId={selectedId}
-        onSetSelectedId={onSetSelectedId}
+        selectedId={selectedNote.id}
+        selectedNoteHandler={selectedNoteHandler}
         notes={notes}
       />
       <main css={mainStyle}>
-        <Editor />
-        <Preview />
+        <Editor
+          editTitle={selectedNote.title}
+          editContent={selectedNote.content}
+          editTitleHandler={editTitleHandler}
+          editContentHandler={editContenteHandler}
+        />
+        <Preview title={selectedNote.title} content={selectedNote.content} />
       </main>
     </div>
   );

@@ -5,11 +5,11 @@ interface Props {
   addNote: () => void;
   removeNote: (id: string) => void;
   selectedId: string;
-  onSetSelectedId: (id: string) => void;
+  selectedNoteHandler: (note: Note) => void;
   notes: Note[];
 }
 
-const NoteList = ({ addNote, removeNote, selectedId, onSetSelectedId, notes }: Props) => {
+const NoteList = ({ addNote, removeNote, selectedId, selectedNoteHandler, notes }: Props) => {
   const selectedNoteStyle = css({
     background: '#b79600',
   });
@@ -28,7 +28,7 @@ const NoteList = ({ addNote, removeNote, selectedId, onSetSelectedId, notes }: P
             <li
               key={note.id}
               css={note.id === selectedId && selectedNoteStyle}
-              onClick={() => onSetSelectedId(note.id)}
+              onClick={() => selectedNoteHandler(note)}
             >
               <div>
                 <h3 css={h3Style}>{note.title}</h3>
