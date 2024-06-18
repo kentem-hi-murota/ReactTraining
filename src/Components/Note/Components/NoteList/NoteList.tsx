@@ -1,16 +1,15 @@
 import { css } from '@emotion/react';
 import type { Note } from '../../Note';
-import { useState } from 'react';
 
 interface Props {
   addNote: () => void;
   removeNote: (id: string) => void;
+  selectedId: string;
+  onSetSelectedId: (id: string) => void;
   notes: Note[];
 }
 
-const NoteList = ({ addNote, removeNote, notes }: Props) => {
-  const [selectedId, setSelectedId] = useState<string>('');
-
+const NoteList = ({ addNote, removeNote, selectedId, onSetSelectedId, notes }: Props) => {
   const selectedNoteStyle = css({
     background: '#b79600',
   });
@@ -26,7 +25,11 @@ const NoteList = ({ addNote, removeNote, notes }: Props) => {
       <ul css={listStyle}>
         {notes.map((note) => {
           return (
-            <li key={note.id} css={note.id === selectedId && selectedNoteStyle} onClick={() => setSelectedId(note.id)}>
+            <li
+              key={note.id}
+              css={note.id === selectedId && selectedNoteStyle}
+              onClick={() => onSetSelectedId(note.id)}
+            >
               <div>
                 <h3 css={h3Style}>{note.title}</h3>
                 <p css={paragraphStyle}>{note.content}</p>

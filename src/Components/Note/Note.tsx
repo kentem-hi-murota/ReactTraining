@@ -12,6 +12,7 @@ export interface Note {
 
 const Note = () => {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedId, setSelectedId] = useState<string>('');
 
   const addNote = () => {
     const newNote = {
@@ -28,9 +29,19 @@ const Note = () => {
     setNotes([...newNotes]);
   };
 
+  const onSetSelectedId = (id: string): void => {
+    setSelectedId(id);
+  };
+
   return (
     <div css={noteStyle}>
-      <NoteList addNote={addNote} removeNote={removeNote} notes={notes} />
+      <NoteList
+        addNote={addNote}
+        removeNote={removeNote}
+        selectedId={selectedId}
+        onSetSelectedId={onSetSelectedId}
+        notes={notes}
+      />
       <main css={mainStyle}>
         <Editor />
         <Preview />
