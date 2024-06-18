@@ -49,7 +49,6 @@ const NoteList = ({ addNote, removeNote, selectedId, onSetSelectedId, notes }: P
 const sideBarStyle = css({
   width: '30%',
   height: '100vh',
-  boxSizing: 'border-box',
 });
 
 const sideBarHeadStyle = css({

@@ -20,6 +20,10 @@ const bodyGrobalStyle = css({
     height: '100vh',
     margin: '0',
   },
+
+  '*': {
+    boxSizing: 'border-box',
+  },
 });
 
 export default App;

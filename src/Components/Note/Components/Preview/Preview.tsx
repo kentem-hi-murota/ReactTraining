@@ -13,7 +13,6 @@ const previewStyle = css({
   textAlign: 'left',
   height: 'calc(50vh - 16px)',
   margin: '16px 16px',
-  borderTop: '1px solid #bbb',
   overflowY: 'scroll',
   background: 'rgba(0,0,0,0.1)',
 

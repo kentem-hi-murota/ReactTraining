@@ -55,9 +55,8 @@ const noteStyle = css({
 });
 
 const mainStyle = css({
-  padding: '24px',
   width: '100%',
-  boxSizing: 'border-box',
+  height: '100vh',
 });
 
 export default Note;
