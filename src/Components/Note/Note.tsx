@@ -29,7 +29,6 @@ const Note = () => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes([...newNotes]);
     setSelectedNote({ id: '', title: '', content: '', modDate: -1 });
-    console.log(selectedNote);
   };
 
   const selectedNoteHandler = (note: Note): void => {

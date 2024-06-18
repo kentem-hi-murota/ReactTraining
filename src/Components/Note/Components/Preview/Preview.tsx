@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import ReactMarkdown from 'react-markdown';
 
 interface Props {
   title: string;
@@ -9,7 +10,7 @@ const Preview = ({ title, content }: Props) => {
   return (
     <div css={previewStyle}>
       <h2>{title}</h2>
-      <p>{content}</p>
+      <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   );
 };
