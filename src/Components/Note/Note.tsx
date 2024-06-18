@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { NoteList, Editor, Preview } from './Components/index';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface Note {
   id: string;
@@ -11,8 +11,12 @@ export interface Note {
 }
 
 const Note = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<Note[]>(JSON.parse(localStorage.getItem('notes') as string));
   const [selectedNote, setSelectedNote] = useState<Note>({ id: '', title: '', content: '', modDate: -1 });
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
 
   const addNote = () => {
     const newNote = {
