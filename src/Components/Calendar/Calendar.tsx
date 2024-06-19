@@ -10,7 +10,7 @@ function Calendar() {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
-  const getCalendar = (): DateType[] => {
+  const getCalendar = (): DateType[][] => {
     const today = new Date();
     const d = new Date(currentYear, currentMonth, 0).getDate();
     const n = new Date(currentYear, currentMonth, 1).getDay();
@@ -26,12 +26,18 @@ function Calendar() {
     body[today.getDate() - 1].isToday = currentMonth === today.getMonth() && currentYear === today.getFullYear();
     const lastDay = new Date(currentYear, currentMonth + 1, 0).getDay();
     const tail: DateType[] = [...Array(7 - lastDay - 1)].map((_, i) => {
-      return { date: i + 1, isToday: false, isDisabled: false };
+      return { date: i + 1, isToday: false, isDisabled: true };
     });
-    return [...head, ...body, ...tail];
+    const dates = [...head, ...body, ...tail];
+    const weekLength = Math.floor(dates.length / 7);
+    const weeks: DateType[][] = [...Array(weekLength)].map(() => [...Array(7)]);
+    for (let i = 0; i < weekLength; i++) {
+      weeks[i] = dates.slice(i * 7, (i + 1) * 7);
+    }
+    return weeks;
   };
-  console.log(getCalendar());
 
+  // getCalendar().map((week) => console.log(week));
   return (
     <div>
       <table>
@@ -53,9 +59,15 @@ function Calendar() {
           <tr>Sat</tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-          </tr>
+          {getCalendar().map((week, i) => {
+            return (
+              <tr key={'week' + i}>
+                {week.map((date, j) => (
+                  <td key={'date' + j}>{date.date}</td>
+                ))}
+              </tr>
+            );
+          })}
         </tbody>
         <tfoot>
           <tr>
