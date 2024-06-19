@@ -11,8 +11,8 @@ function Calendar() {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
+  const today = new Date();
   const getCalendar = (): DateType[][] => {
-    const today = new Date();
     const d = new Date(currentYear, currentMonth, 0).getDate();
     const n = new Date(currentYear, currentMonth, 1).getDay();
     const head: DateType[] = [...Array(n)]
@@ -59,18 +59,23 @@ function Calendar() {
     }
   };
 
+  const moveToday = () => {
+    setCurrentYear(today.getFullYear());
+    setCurrentMonth(today.getMonth());
+  };
+
   return (
     <div>
       <table css={calendarStyle}>
         <thead css={calendarHeaderStyle}>
           <tr>
-            <th colSpan={2} onClick={movePrev} css={moveButtonStyle}>
+            <th colSpan={2} onClick={movePrev} css={buttonStyle}>
               &laquo;
             </th>
             <th colSpan={3}>
               {currentYear}/{(currentMonth + 1).toString().padStart(2, '0')}
             </th>
-            <th colSpan={2} onClick={moveNext} css={moveButtonStyle}>
+            <th colSpan={2} onClick={moveNext} css={buttonStyle}>
               &raquo;
             </th>
           </tr>
@@ -103,7 +108,9 @@ function Calendar() {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={7}>Today</td>
+            <td colSpan={7} onClick={moveToday} css={buttonStyle}>
+              Today
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -119,7 +126,7 @@ const calendarHeaderStyle = css({
   '& th': css({ padding: '8px 0' }),
 });
 
-const moveButtonStyle = css({
+const buttonStyle = css({
   cursor: 'pointer',
   userSelect: 'none',
 });
