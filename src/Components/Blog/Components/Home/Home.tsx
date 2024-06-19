@@ -12,7 +12,9 @@ const Home = () => {
         const response = await getDocs(collection(db, 'posts'));
         const articles = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setPostList(articles);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     getArticles();
   }, []);
@@ -24,24 +26,25 @@ const Home = () => {
 
   return (
     <div css={homePageStyle}>
-      {postList.map((post) => {
-        return (
-          <article css={articleStyle} key={post.id}>
-            <section>
-              <h2>{post.title}</h2>
-              <p css={paragrahStyle}>{post.postsText}</p>
-            </section>
-            <section css={authStyle}>
-              <h3>{post.author.username}</h3>
-              {auth.currentUser?.uid === post.author.id && (
-                <button css={buttonStyle} onClick={() => HandleDelete(post.id)}>
-                  削除
-                </button>
-              )}
-            </section>
-          </article>
-        );
-      })}
+      {localStorage.getItem('isAuth') &&
+        postList.map((post) => {
+          return (
+            <article css={articleStyle} key={post.id}>
+              <section>
+                <h2>{post.title}</h2>
+                <p css={paragrahStyle}>{post.postsText}</p>
+              </section>
+              <section css={authStyle}>
+                <h3>{post.author.username}</h3>
+                {auth.currentUser?.uid === post.author.id && (
+                  <button css={buttonStyle} onClick={() => HandleDelete(post.id)}>
+                    削除
+                  </button>
+                )}
+              </section>
+            </article>
+          );
+        })}
     </div>
   );
 };
