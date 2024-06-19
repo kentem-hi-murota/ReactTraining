@@ -24,6 +24,15 @@ function Bingo() {
       {'BINGO'.split('').map((char) => (
         <div key={char}>{char}</div>
       ))}
+      {bingoSheet.map((row, index) => {
+        return (
+          <div key={index}>
+            {row.map((number) => (
+              <div key={number}>{number}</div>
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }
