@@ -22,6 +22,11 @@ const MemoPad = () => {
     setIsAppear(true);
   };
 
+  const restoreMemo = () => {
+    const storedMemo: string = localStorage.getItem('memo') ?? '';
+    setMemoText(storedMemo);
+  };
+
   return (
     <>
       <h1 css={h1Style}>メモ帳</h1>
@@ -42,7 +47,9 @@ const MemoPad = () => {
           <button onClick={saveMemo} disabled={Boolean(!memoText)}>
             保存
           </button>
-          <button disabled>復元</button>
+          <button onClick={restoreMemo} disabled={Boolean(!localStorage.getItem('memo'))}>
+            復元
+          </button>
         </div>
       </main>
     </>
