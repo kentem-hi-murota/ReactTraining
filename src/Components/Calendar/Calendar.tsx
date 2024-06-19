@@ -41,16 +41,38 @@ function Calendar() {
     return weeks;
   };
 
+  const movePrev = () => {
+    if (currentMonth === 0) {
+      setCurrentYear((prev) => --prev);
+      setCurrentMonth(11);
+    } else {
+      setCurrentMonth((prev) => --prev);
+    }
+  };
+
+  const moveNext = () => {
+    if (currentMonth === 11) {
+      setCurrentYear((prev) => ++prev);
+      setCurrentMonth(0);
+    } else {
+      setCurrentMonth((prev) => ++prev);
+    }
+  };
+
   return (
     <div>
       <table css={calendarStyle}>
         <thead css={calendarHeaderStyle}>
           <tr>
-            <th colSpan={2}>&laquo;</th>
+            <th colSpan={2} onClick={movePrev}>
+              &laquo;
+            </th>
             <th colSpan={3}>
               {currentYear}/{(currentMonth + 1).toString().padStart(2, '0')}
             </th>
-            <th colSpan={2}>&raquo;</th>
+            <th colSpan={2} onClick={moveNext}>
+              &raquo;
+            </th>
           </tr>
           <tr>
             <td css={calendarDayStyle}>Sun</td>
