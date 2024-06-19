@@ -13,8 +13,10 @@ const MemoPad = () => {
   }, [isAppear]);
 
   const removeMemo = (): void => {
-    localStorage.removeItem('memo');
-    setMemoText('');
+    if (confirm('削除しますか?')) {
+      localStorage.removeItem('memo');
+      setMemoText('');
+    }
   };
 
   const saveMemo = (): void => {
