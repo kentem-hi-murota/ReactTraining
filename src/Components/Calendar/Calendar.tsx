@@ -64,13 +64,13 @@ function Calendar() {
       <table css={calendarStyle}>
         <thead css={calendarHeaderStyle}>
           <tr>
-            <th colSpan={2} onClick={movePrev}>
+            <th colSpan={2} onClick={movePrev} css={moveButtonStyle}>
               &laquo;
             </th>
             <th colSpan={3}>
               {currentYear}/{(currentMonth + 1).toString().padStart(2, '0')}
             </th>
-            <th colSpan={2} onClick={moveNext}>
+            <th colSpan={2} onClick={moveNext} css={moveButtonStyle}>
               &raquo;
             </th>
           </tr>
@@ -113,12 +113,15 @@ function Calendar() {
 
 const calendarStyle = css({
   background: '#EEE',
-  width: '300px',
-  height: '300px',
 });
 
 const calendarHeaderStyle = css({
   '& th': css({ padding: '8px 0' }),
+});
+
+const moveButtonStyle = css({
+  cursor: 'pointer',
+  userSelect: 'none',
 });
 
 const calendarDayStyle = css({
@@ -130,6 +133,8 @@ const calendarDayStyle = css({
 const calendarDateStyle = css({
   background: 'white',
   textAlign: 'left',
+  padding: '4px 8px 4px 2px',
+  fontSize: '12px',
   width: '36px',
   height: '24px',
 
