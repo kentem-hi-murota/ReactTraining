@@ -12,17 +12,17 @@ const MemoPad = () => {
     return () => clearTimeout(timerId);
   }, [isAppear]);
 
-  const removeMemo = () => {
+  const removeMemo = (): void => {
     localStorage.removeItem('memo');
     setMemoText('');
   };
 
-  const saveMemo = () => {
+  const saveMemo = (): void => {
     localStorage.setItem('memo', memoText);
     setIsAppear(true);
   };
 
-  const restoreMemo = () => {
+  const restoreMemo = (): void => {
     const storedMemo: string = localStorage.getItem('memo') ?? '';
     setMemoText(storedMemo);
   };
