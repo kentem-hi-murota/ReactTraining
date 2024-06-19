@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const MemoPad = () => {
   const [isAppear, setIsAppear] = useState(false);
+  const [memoText, setMemoText] = useState<string>('');
 
   useEffect(() => {
     const timerId: NodeJS.Timeout = setTimeout(() => {
@@ -12,6 +13,7 @@ const MemoPad = () => {
   }, [isAppear]);
 
   const saveMemo = () => {
+    localStorage.setItem('memo', memoText);
     setIsAppear(true);
   };
 
@@ -19,12 +21,20 @@ const MemoPad = () => {
     <>
       <h1 css={h1Style}>メモ帳</h1>
       <main css={mainStyle}>
-        <textarea rows={12} css={textAreaStyle}></textarea>
+        <textarea
+          rows={12}
+          css={textAreaStyle}
+          onChange={(e) => {
+            setMemoText(e.target.value);
+          }}
+        ></textarea>
         <div css={controlStyle}>
           <p css={[pStyle, isAppear && setAppear]}>保存しました</p>
-          <button>削除</button>
-          <button onClick={saveMemo}>保存</button>
-          <button>復元</button>
+          <button disabled>削除</button>
+          <button onClick={saveMemo} disabled={Boolean(!memoText)}>
+            保存
+          </button>
+          <button disabled>復元</button>
         </div>
       </main>
     </>
