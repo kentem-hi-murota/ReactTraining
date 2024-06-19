@@ -12,6 +12,11 @@ const MemoPad = () => {
     return () => clearTimeout(timerId);
   }, [isAppear]);
 
+  const removeMemo = () => {
+    localStorage.removeItem('memo');
+    setMemoText('');
+  };
+
   const saveMemo = () => {
     localStorage.setItem('memo', memoText);
     setIsAppear(true);
@@ -27,10 +32,13 @@ const MemoPad = () => {
           onChange={(e) => {
             setMemoText(e.target.value);
           }}
+          value={memoText}
         ></textarea>
         <div css={controlStyle}>
           <p css={[pStyle, isAppear && setAppear]}>保存しました</p>
-          <button disabled>削除</button>
+          <button onClick={removeMemo} disabled={Boolean(!localStorage.getItem('memo'))}>
+            削除
+          </button>
           <button onClick={saveMemo} disabled={Boolean(!memoText)}>
             保存
           </button>
