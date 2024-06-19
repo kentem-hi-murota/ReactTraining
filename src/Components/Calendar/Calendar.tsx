@@ -7,32 +7,37 @@ interface DateType {
   isDisabled: boolean;
 }
 
-function Calendar() {
+const Calendar = () => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
   const today = new Date();
-  const getCalendar = (): DateType[][] => {
+
+  const getHeadDate = (): DateType[] => {
     const d = new Date(currentYear, currentMonth, 0).getDate();
     const n = new Date(currentYear, currentMonth, 1).getDay();
-    const head: DateType[] = [...Array(n)]
-      .map((_, i) => {
-        return { date: d - i, isToday: false, isDisabled: true };
-      })
-      .reverse();
+    const head: DateType[] = [...Array(n)].map((_, i) => ({ date: d - i, isToday: false, isDisabled: true }));
+    return head.reverse();
+  };
 
+  const getBodyDate = (): DateType[] => {
     const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
     const body: DateType[] = [...Array(lastDate)].map((_, i) => {
       return { date: i + 1, isToday: false, isDisabled: false };
     });
     body[today.getDate() - 1].isToday = currentMonth === today.getMonth() && currentYear === today.getFullYear();
+    return body;
+  };
 
+  const getTailDate = (): DateType[] => {
     const lastDay = new Date(currentYear, currentMonth + 1, 0).getDay();
     const tail: DateType[] = [...Array(7 - lastDay - 1)].map((_, i) => {
       return { date: i + 1, isToday: false, isDisabled: true };
     });
+    return tail;
+  };
 
-    const dates = [...head, ...body, ...tail];
+  const divideToWeeks = (dates: DateType[]): DateType[][] => {
     const weekLength = Math.floor(dates.length / 7);
     const weeks: DateType[][] = [...Array(weekLength)].map(() => [...Array(7)]);
     for (let i = 0; i < weekLength; i++) {
@@ -41,7 +46,15 @@ function Calendar() {
     return weeks;
   };
 
-  const movePrev = () => {
+  const getCalendar = (): DateType[][] => {
+    const head = getHeadDate();
+    const body = getBodyDate();
+    const tail = getTailDate();
+    const weeks = divideToWeeks([...head, ...body, ...tail]);
+    return weeks;
+  };
+
+  const movePrev = (): void => {
     if (currentMonth === 0) {
       setCurrentYear((prev) => --prev);
       setCurrentMonth(11);
@@ -50,7 +63,7 @@ function Calendar() {
     }
   };
 
-  const moveNext = () => {
+  const moveNext = (): void => {
     if (currentMonth === 11) {
       setCurrentYear((prev) => ++prev);
       setCurrentMonth(0);
@@ -59,7 +72,7 @@ function Calendar() {
     }
   };
 
-  const moveToday = () => {
+  const moveToday = (): void => {
     setCurrentYear(today.getFullYear());
     setCurrentMonth(today.getMonth());
   };
@@ -116,7 +129,7 @@ function Calendar() {
       </table>
     </div>
   );
-}
+};
 
 const calendarStyle = css({
   background: '#EEE',
@@ -153,10 +166,10 @@ const calendarDateStyle = css({
     fontWeight: 'bold',
   }),
 
-  '&:nth-child(1)': css({
+  '&:nth-of-type(1)': css({
     color: 'red',
   }),
-  '&:nth-child(7)': css({
+  '&:nth-of-type(7)': css({
     color: 'blue',
   }),
 });
