@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { useState } from 'react';
 
 interface DateType {
@@ -19,15 +20,18 @@ function Calendar() {
         return { date: d - i, isToday: false, isDisabled: true };
       })
       .reverse();
+
     const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
     const body: DateType[] = [...Array(lastDate)].map((_, i) => {
       return { date: i + 1, isToday: false, isDisabled: false };
     });
     body[today.getDate() - 1].isToday = currentMonth === today.getMonth() && currentYear === today.getFullYear();
+
     const lastDay = new Date(currentYear, currentMonth + 1, 0).getDay();
     const tail: DateType[] = [...Array(7 - lastDay - 1)].map((_, i) => {
       return { date: i + 1, isToday: false, isDisabled: true };
     });
+
     const dates = [...head, ...body, ...tail];
     const weekLength = Math.floor(dates.length / 7);
     const weeks: DateType[][] = [...Array(weekLength)].map(() => [...Array(7)]);
@@ -37,33 +41,39 @@ function Calendar() {
     return weeks;
   };
 
-  // getCalendar().map((week) => console.log(week));
   return (
     <div>
-      <table>
-        <thead>
+      <table css={calendarStyle}>
+        <thead css={calendarHeaderStyle}>
           <tr>
-            <th>&laquo;</th>
-            <th>
+            <th colSpan={2}>&laquo;</th>
+            <th colSpan={3}>
               {currentYear}/{(currentMonth + 1).toString().padStart(2, '0')}
             </th>
-            <th>&raquo;</th>
+            <th colSpan={2}>&raquo;</th>
           </tr>
-          <tr></tr>
-          <tr>Sun</tr>
-          <tr>Mon</tr>
-          <tr>Tue</tr>
-          <tr>Wed</tr>
-          <tr>Thu</tr>
-          <tr>Fri</tr>
-          <tr>Sat</tr>
+          <tr>
+            <td css={calendarDayStyle}>Sun</td>
+            <td css={calendarDayStyle}>Mon</td>
+            <td css={calendarDayStyle}>Tue</td>
+            <td css={calendarDayStyle}>Wed</td>
+            <td css={calendarDayStyle}>Thu</td>
+            <td css={calendarDayStyle}>Fri</td>
+            <td css={calendarDayStyle}>Sat</td>
+          </tr>
         </thead>
         <tbody>
           {getCalendar().map((week, i) => {
             return (
               <tr key={'week' + i}>
                 {week.map((date, j) => (
-                  <td key={'date' + j}>{date.date}</td>
+                  <td
+                    key={'date' + j}
+                    css={calendarDateStyle}
+                    className={(date.isToday ? 'today' : '') + (date.isDisabled ? 'disabled' : '')}
+                  >
+                    {date.date}
+                  </td>
                 ))}
               </tr>
             );
@@ -78,5 +88,43 @@ function Calendar() {
     </div>
   );
 }
+
+const calendarStyle = css({
+  background: '#EEE',
+  width: '300px',
+  height: '300px',
+});
+
+const calendarHeaderStyle = css({
+  '& th': css({ padding: '8px 0' }),
+});
+
+const calendarDayStyle = css({
+  fontSize: '14px',
+  fontWeight: 'bold',
+  padding: '4px 0',
+});
+
+const calendarDateStyle = css({
+  background: 'white',
+  textAlign: 'left',
+  width: '36px',
+  height: '24px',
+
+  '&.disabled': css({
+    opacity: '0.5',
+  }),
+
+  '&.today': css({
+    fontWeight: 'bold',
+  }),
+
+  '&:nth-child(1)': css({
+    color: 'red',
+  }),
+  '&:nth-child(7)': css({
+    color: 'blue',
+  }),
+});
 
 export default Calendar;
