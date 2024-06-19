@@ -1,6 +1,6 @@
 import { css, Global } from '@emotion/react';
 import { Pokemon, Blog, Note, MemoPad } from './Components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [currentApp, setCurrentApp] = useState<React.ReactNode>(<Blog />);
@@ -16,9 +16,13 @@ function App() {
     setCurrentApp(Children);
   };
 
-  useEffect(() => {
-    localStorage.clear();
-  }, [currentApp]);
+  const clearLocalStorage = (): void => {
+    if (confirm('local storageをリセットしますか？')) {
+      localStorage.clear();
+      window.location.href = '/';
+    }
+  };
+
   return (
     <>
       <Global styles={bodyGrobalStyle} />
@@ -29,6 +33,9 @@ function App() {
             {app.name}
           </button>
         ))}
+        <button css={buttonStyle} className="reset" onClick={clearLocalStorage}>
+          Reset LocalStorage
+        </button>
       </header>
       {currentApp}
     </>
@@ -67,6 +74,13 @@ const buttonStyle = css({
   '&:hover': css({
     cursor: 'pointer',
     background: '#fae278',
+  }),
+
+  '&.reset': css({
+    width: '144px',
+    margin: '4px 4px 4px auto',
+    background: 'tomato',
+    border: '2px solid salmon',
   }),
 });
 
