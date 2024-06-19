@@ -20,7 +20,7 @@ const Note = () => {
 
   useEffect(() => {
     if (notes.length) setSelectedNote(notes[0]);
-  }, []);
+  }, [notes]);
 
   const addNote = () => {
     const newNote = {
