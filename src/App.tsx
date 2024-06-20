@@ -2,20 +2,31 @@ import { css, Global } from '@emotion/react';
 import { Pokemon, Blog, Note, MemoPad, Bingo, Schedule } from './Components';
 import { useState } from 'react';
 
+interface App {
+  name: string;
+  app: React.ReactNode;
+}
+
+const apps: App[] = [
+  { name: 'blog', app: <Blog /> },
+  { name: 'pokemon', app: <Pokemon /> },
+  { name: 'note', app: <Note /> },
+  { name: 'memo', app: <MemoPad /> },
+  { name: 'Bingo', app: <Bingo /> },
+  { name: 'Schedule', app: <Schedule /> },
+];
+
 function App() {
-  const [currentApp, setCurrentApp] = useState<React.ReactNode>(<Blog />);
+  const getCurrentApp = (): React.ReactNode => {
+    const currentAppName = sessionStorage.getItem('app');
+    return currentAppName ? apps.filter((app) => app.name === currentAppName)[0].app : <Blog />;
+  };
 
-  const apps: { name: string; app: React.ReactNode }[] = [
-    { name: 'blog', app: <Blog /> },
-    { name: 'pokemon', app: <Pokemon /> },
-    { name: 'note', app: <Note /> },
-    { name: 'memo', app: <MemoPad /> },
-    { name: 'Bingo', app: <Bingo /> },
-    { name: 'Schedule', app: <Schedule /> },
-  ];
+  const [currentApp, setCurrentApp] = useState<React.ReactNode>(getCurrentApp());
 
-  const setApp = (Children: React.ReactNode): void => {
-    setCurrentApp(Children);
+  const setApp = (app: App): void => {
+    sessionStorage.setItem('app', app.name);
+    setCurrentApp(app.app);
   };
 
   const clearSessionStorage = (): void => {
@@ -31,7 +42,7 @@ function App() {
       <header css={headerStyle}>
         <span>Apps:</span>
         {apps.map((app) => (
-          <button key={app.name} css={buttonStyle} onClick={() => setApp(app.app)}>
+          <button key={app.name} css={buttonStyle} onClick={() => setApp(app)}>
             {app.name}
           </button>
         ))}
