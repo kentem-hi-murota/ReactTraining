@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import { TableCell } from '../TableCell';
-export interface DateType {
+
+interface DateType {
   date: number;
   isToday: boolean;
   isDisabled: boolean;
 }
+
 interface Props {
   currentYear: number;
   currentMonth: number;
