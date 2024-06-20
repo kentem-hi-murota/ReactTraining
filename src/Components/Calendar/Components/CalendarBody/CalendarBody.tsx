@@ -54,22 +54,22 @@ const CalendarBody = ({ currentYear, currentMonth }: Props) => {
     return weeks;
   };
 
+  const renderRows = (week: DateType[]): React.ReactNode => {
+    return week.map((date, dateIndex) => (
+      <TableCell
+        key={'date' + dateIndex}
+        style={calendarDateStyle}
+        className={(date.isToday ? 'today' : '') + (date.isDisabled ? 'disabled' : '')}
+        value={date.date}
+      />
+    ));
+  };
+
   return (
     <tbody>
-      {getCalendar().map((week, i) => {
-        return (
-          <tr key={'week' + i}>
-            {week.map((date, j) => (
-              <TableCell
-                key={'date' + j}
-                style={calendarDateStyle}
-                className={(date.isToday ? 'today' : '') + (date.isDisabled ? 'disabled' : '')}
-                value={date.date}
-              />
-            ))}
-          </tr>
-        );
-      })}
+      {getCalendar().map((week, weekIndex) => (
+        <tr key={'week' + weekIndex}>{renderRows(week)}</tr>
+      ))}
     </tbody>
   );
 };
