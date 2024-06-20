@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faFilePen, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
-  const isAuth = localStorage.getItem('isAuth');
+  const isAuth = sessionStorage.getItem('isAuth');
   return (
     <nav css={navVarStyle}>
       <Link to="/" css={linkStyle}>

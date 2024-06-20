@@ -11,11 +11,11 @@ export interface Note {
 }
 
 const Note = () => {
-  const [notes, setNotes] = useState<Note[]>(JSON.parse(localStorage.getItem('notes') as string) || []);
+  const [notes, setNotes] = useState<Note[]>(JSON.parse(sessionStorage.getItem('notes') as string) || []);
   const [selectedNote, setSelectedNote] = useState<Note>({ id: '', title: '', content: '', modDate: -1 });
 
   useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
+    sessionStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {

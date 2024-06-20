@@ -8,7 +8,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const isAuth = localStorage.getItem('isAuth');
+  const isAuth = sessionStorage.getItem('isAuth');
   const navigate = useNavigate();
 
   const Post = async () => {

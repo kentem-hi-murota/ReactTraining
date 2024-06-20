@@ -3,7 +3,7 @@ import { Home, CreatePost, Login, Logout, Navbar } from './Components';
 
 const Blog = () => {
   const isAuthHandler = (data: 'true' | 'false') => {
-    localStorage.setItem('isAuth', data);
+    sessionStorage.setItem('isAuth', data);
   };
   return (
     <Router>

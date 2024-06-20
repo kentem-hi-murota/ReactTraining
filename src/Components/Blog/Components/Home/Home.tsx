@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <div css={homePageStyle}>
-      {localStorage.getItem('isAuth') &&
+      {sessionStorage.getItem('isAuth') &&
         postList.map((post) => {
           return (
             <article css={articleStyle} key={post.id}>

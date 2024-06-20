@@ -18,9 +18,9 @@ function App() {
     setCurrentApp(Children);
   };
 
-  const clearLocalStorage = (): void => {
-    if (confirm('local storageをリセットしますか？')) {
-      localStorage.clear();
+  const clearSessionStorage = (): void => {
+    if (confirm('session storageをリセットしますか？')) {
+      sessionStorage.clear();
       window.location.href = '/';
     }
   };
@@ -35,8 +35,8 @@ function App() {
             {app.name}
           </button>
         ))}
-        <button css={buttonStyle} className="reset" onClick={clearLocalStorage}>
-          Reset LocalStorage
+        <button css={buttonStyle} className="reset" onClick={clearSessionStorage}>
+          Clear SessionStorage
         </button>
       </header>
       {currentApp}

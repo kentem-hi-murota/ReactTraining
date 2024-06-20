@@ -14,18 +14,18 @@ const MemoPad = () => {
 
   const removeMemo = (): void => {
     if (confirm('削除しますか?')) {
-      localStorage.removeItem('memo');
+      sessionStorage.removeItem('memo');
       setMemoText('');
     }
   };
 
   const saveMemo = (): void => {
-    localStorage.setItem('memo', memoText);
+    sessionStorage.setItem('memo', memoText);
     setIsAppear(true);
   };
 
   const restoreMemo = (): void => {
-    const storedMemo: string = localStorage.getItem('memo') ?? '';
+    const storedMemo: string = sessionStorage.getItem('memo') ?? '';
     setMemoText(storedMemo);
   };
 
@@ -43,13 +43,13 @@ const MemoPad = () => {
         ></textarea>
         <div css={controlStyle}>
           <p css={[pStyle, isAppear && setAppear]}>保存しました</p>
-          <button onClick={removeMemo} disabled={Boolean(!localStorage.getItem('memo'))}>
+          <button onClick={removeMemo} disabled={Boolean(!sessionStorage.getItem('memo'))}>
             削除
           </button>
           <button onClick={saveMemo} disabled={Boolean(!memoText)}>
             保存
           </button>
-          <button onClick={restoreMemo} disabled={Boolean(!localStorage.getItem('memo'))}>
+          <button onClick={restoreMemo} disabled={Boolean(!sessionStorage.getItem('memo'))}>
             復元
           </button>
         </div>
