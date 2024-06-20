@@ -1,4 +1,5 @@
 import { SerializedStyles } from '@emotion/react';
+import { TableCell } from '../TableCell';
 
 interface Props {
   style: SerializedStyles | SerializedStyles[];
@@ -10,9 +11,7 @@ const CalendarTail = ({ style, colSpan, clickHandler }: Props) => {
   return (
     <tfoot>
       <tr>
-        <td colSpan={colSpan} onClick={clickHandler} css={style}>
-          Today
-        </td>
+        <TableCell colSpan={colSpan} clickHandler={clickHandler} style={style} value={'Today'} />
       </tr>
     </tfoot>
   );

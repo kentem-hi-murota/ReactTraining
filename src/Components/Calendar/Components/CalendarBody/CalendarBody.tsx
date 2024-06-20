@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { TableCell } from '../TableCell';
 export interface DateType {
   date: number;
   isToday: boolean;
@@ -52,19 +53,19 @@ const CalendarBody = ({ currentYear, currentMonth }: Props) => {
     const weeks = divideToWeeks([...head, ...body, ...tail]);
     return weeks;
   };
+
   return (
     <tbody>
       {getCalendar().map((week, i) => {
         return (
           <tr key={'week' + i}>
             {week.map((date, j) => (
-              <td
+              <TableCell
                 key={'date' + j}
-                css={calendarDateStyle}
+                style={calendarDateStyle}
                 className={(date.isToday ? 'today' : '') + (date.isDisabled ? 'disabled' : '')}
-              >
-                {date.date}
-              </td>
+                value={date.date}
+              />
             ))}
           </tr>
         );
