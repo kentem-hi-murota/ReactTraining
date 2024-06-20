@@ -1,9 +1,10 @@
-import { Calendar } from './Components';
+import { Calendar, ScheduleList } from './Components';
 
 const Schedule = () => {
   return (
     <div>
       <Calendar />
+      <ScheduleList />
     </div>
   );
 };
