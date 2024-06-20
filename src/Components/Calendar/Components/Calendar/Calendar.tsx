@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { CalendarHead, CalendarBody, CalendarTail } from './Components/index';
 import { css } from '@emotion/react';
+import { CalendarHead, CalendarBody, CalendarTail } from '../index';
 
 const Calendar = () => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
@@ -32,11 +32,13 @@ const Calendar = () => {
   };
 
   return (
-    <table css={calendarStyle}>
-      <CalendarHead currentMonth={currentMonth} currentYear={currentYear} movePrev={movePrev} moveNext={moveNext} />
-      <CalendarBody currentMonth={currentMonth} currentYear={currentYear} />
-      <CalendarTail style={buttonStyle} colSpan={7} clickHandler={moveToday}></CalendarTail>
-    </table>
+    <div>
+      <table css={calendarStyle}>
+        <CalendarHead currentMonth={currentMonth} currentYear={currentYear} movePrev={movePrev} moveNext={moveNext} />
+        <CalendarBody currentMonth={currentMonth} currentYear={currentYear} />
+        <CalendarTail style={calendarButtonStyle} colSpan={7} clickHandler={moveToday}></CalendarTail>
+      </table>
+    </div>
   );
 };
 
@@ -44,7 +46,7 @@ const calendarStyle = css({
   background: '#EEE',
 });
 
-const buttonStyle = css({
+const calendarButtonStyle = css({
   cursor: 'pointer',
   userSelect: 'none',
 });

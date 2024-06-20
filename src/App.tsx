@@ -1,5 +1,5 @@
 import { css, Global } from '@emotion/react';
-import { Pokemon, Blog, Note, MemoPad, Bingo, Calendar } from './Components';
+import { Pokemon, Blog, Note, MemoPad, Bingo, Schedule } from './Components';
 import { useState } from 'react';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     { name: 'note', app: <Note /> },
     { name: 'memo', app: <MemoPad /> },
     { name: 'Bingo', app: <Bingo /> },
-    { name: 'Calendar', app: <Calendar /> },
+    { name: 'Schedule', app: <Schedule /> },
   ];
 
   const setApp = (Children: React.ReactNode): void => {
