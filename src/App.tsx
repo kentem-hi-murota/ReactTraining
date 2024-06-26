@@ -1,5 +1,5 @@
 import { css, Global } from '@emotion/react';
-import { Pokemon, Blog, Note, MemoPad, Bingo, Schedule } from './Components';
+import { Pokemon, Blog, Note, MemoPad, Bingo, Schedule, SimpleApp } from './Components';
 import { useState } from 'react';
 
 interface App {
@@ -14,12 +14,13 @@ const apps: App[] = [
   { name: 'memo', app: <MemoPad /> },
   { name: 'Bingo', app: <Bingo /> },
   { name: 'Schedule', app: <Schedule /> },
+  { name: 'SimpleApp', app: <SimpleApp /> },
 ];
 
 function App() {
   const getCurrentApp = (): React.ReactNode => {
     const currentAppName = sessionStorage.getItem('app');
-    return currentAppName ? apps.filter((app) => app.name === currentAppName)[0].app : <Blog />;
+    return currentAppName ? apps.filter((app) => app.name === currentAppName)[0].app : <SimpleApp />;
   };
 
   const [currentApp, setCurrentApp] = useState<React.ReactNode>(getCurrentApp());

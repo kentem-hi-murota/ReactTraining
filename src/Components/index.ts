@@ -4,3 +4,4 @@ export * from './Note';
 export * from './MemoPad';
 export * from './Bingo';
 export * from './Calendar';
+export * from './SimpleApp';
