@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { getByLabelText, render, screen } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { SimpleApp } from '../../Components';
