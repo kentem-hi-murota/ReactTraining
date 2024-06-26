@@ -3,7 +3,7 @@ interface Props {
 }
 
 const Label = (props: Props) => {
-  return <label>{props.value}</label>;
+  return <label aria-label="label">{props.value}</label>;
 };
 
 export default Label;
